@@ -4,6 +4,23 @@ import BookList from './BookList';
 import "./App.css";
 
 class BooksApp extends React.Component {
+  // state = {
+  //   contacts: [],
+  // }
+  //
+  // componentDidMount() {
+  //   ContactsAPI.getAll().then(contacts => {
+  //     this.setState({ contacts })
+  //   })
+  // }
+  //
+  // removeContact = (contact) => {
+  //   this.setState((state) => ({
+  //     contacts: state.contacts.filter((item) => item.id !== contact.id)
+  //   }))
+  //
+  //   ContactsAPI.remove(contact)
+  // }
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
