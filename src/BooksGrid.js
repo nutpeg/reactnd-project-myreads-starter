@@ -1,19 +1,21 @@
-import React, {Component} from 'react';
-// import {Link} from 'react-router-dom';
-import Book from './Book';
+import React, { Component } from "react";
+import Book from "./Book";
 
 class BooksGrid extends Component {
   render() {
     return (
-        <ol className="books-grid">
-          {/*<li>*/}
-            {/*<Book/>*/}
-          {/*</li>*/}
-          {/*<li>*/}
-            {/*<Book/>*/}
-          {/*</li>*/}
-        </ol>
-    )
+      <ol className="books-grid">
+        {this.props.books.map(book =>
+          <li key={book.id}>
+            <Book
+              title={book.title}
+              imageLink={book.imageLinks ? book.imageLinks.thumbnail : undefined}
+              authors={book.authors}
+            />
+          </li>
+        )}
+      </ol>
+    );
   }
 }
 
