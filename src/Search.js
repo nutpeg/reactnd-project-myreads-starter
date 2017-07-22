@@ -10,6 +10,13 @@ class Search extends Component {
     searchResults: []
   };
 
+  removeDuplicates = books => {
+    return books
+      .map(book => book.id)
+      .reduce((x, y) => (x.includes(y) ? x : [...x, y]), [])
+      .map(id => books.find(book => book.id === id))
+  };
+
   handleSearchTermChange = event => {
     let searchTerm = event.target.value;
     this.setState({ searchTerm: searchTerm.trim() });
@@ -18,11 +25,9 @@ class Search extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const values = serializeForm(event.target, { hash: true });
-    this.setState({ searchTerm: values.searchTerm });
+    // this.setState({ searchTerm: values.searchTerm });
     BooksAPI.search(values.searchTerm, 5).then(searchResults => {
-      // Strip out duplicate books
-      console.log(searchResults);
-      this.setState({ searchResults });
+      this.setState({ searchResults: this.removeDuplicates(searchResults) });
     });
   };
 
