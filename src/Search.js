@@ -14,7 +14,7 @@ class Search extends Component {
     return books
       .map(book => book.id)
       .reduce((x, y) => (x.includes(y) ? x : [...x, y]), [])
-      .map(id => books.find(book => book.id === id))
+      .map(id => books.find(book => book.id === id));
   };
 
   handleSearchTermChange = event => {
@@ -52,6 +52,13 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
+          <div>
+            <pre>
+              <code>
+                {JSON.stringify(searchResults, null, 4)}
+              </code>
+            </pre>
+          </div>
           <BooksGrid books={searchResults} />
         </div>
       </div>

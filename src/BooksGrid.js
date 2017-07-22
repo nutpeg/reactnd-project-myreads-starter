@@ -13,6 +13,9 @@ class BooksGrid extends Component {
                 book.imageLinks ? book.imageLinks.thumbnail : undefined
               }
               authors={book.authors}
+              initialShelf={book.shelf}
+              handleShelfChange={this.props.handleShelfChange}
+              id={book.id}
             />
           </li>
         )}

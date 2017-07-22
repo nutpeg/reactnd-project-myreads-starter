@@ -7,7 +7,7 @@ class Book extends Component {
   };
 
   render() {
-    const { title, authors, imageLink } = this.props;
+    const { id, title, authors, imageLink, selectedValue, handleShelfChange } = this.props;
     let imageUrl;
     if (imageLink !== "none") {
       imageUrl = `url('${imageLink}')`;
@@ -27,7 +27,7 @@ class Book extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select value={selectedValue} onChange={(e) => handleShelfChange(e, id)}>
               <option value="none" disabled>
                 Move to...
               </option>
