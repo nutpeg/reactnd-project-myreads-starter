@@ -9,7 +9,9 @@ class BooksGrid extends Component {
           <li key={book.id}>
             <Book
               title={book.title}
-              imageLink={book.imageLinks ? book.imageLinks.thumbnail : undefined}
+              imageLink={
+                book.imageLinks ? book.imageLinks.thumbnail : undefined
+              }
               authors={book.authors}
             />
           </li>
