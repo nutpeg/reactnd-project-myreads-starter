@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
-// import Bookshelf from "./Bookshelf";
 import BooksGrid from "./BooksGrid";
 
 class BookList extends Component {
@@ -15,9 +14,30 @@ class BookList extends Component {
     });
   }
 
+  updateShelf = (shelf, id) => {
+    const newAllBooks = this.state.allBooks.map(book => {
+      if (book.id === id) {
+        book.shelf = shelf;
+      }
+      return book;
+    });
+    this.setState({ allBooks: newAllBooks });
+    // BooksAPI.update(book, shelf);
+  };
+
   handleShelfChange = (event, id) => {
-    console.log(id);
-    console.log(event.target.value);
+    // find book using ID
+    // const i = this.state.allBooks.findIndex(book => book.id === id);
+    const selectedShelf = event.target.value;
+    // change, no change or removal?
+    if (selectedShelf === 'none') {
+      console.log("Remove!");
+    } else {
+      this.updateShelf(selectedShelf, id);
+    }
+    // if change go through allBooks and change book.shelf
+    // if removal remove from allBooks
+    // update remote db using API
   };
 
   render() {
