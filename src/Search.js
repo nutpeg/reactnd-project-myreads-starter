@@ -25,7 +25,6 @@ class Search extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const values = serializeForm(event.target, { hash: true });
-    // this.setState({ searchTerm: values.searchTerm });
     BooksAPI.search(values.searchTerm, 5).then(searchResults => {
       this.setState({ searchResults: this.removeDuplicates(searchResults) });
     });
@@ -47,18 +46,12 @@ class Search extends Component {
                 placeholder="Search by title or author"
                 value={searchTerm}
                 onChange={this.handleSearchTermChange}
+                autoFocus
               />
             </form>
           </div>
         </div>
         <div className="search-books-results">
-          <div>
-            <pre>
-              <code>
-                {JSON.stringify(searchResults, null, 4)}
-              </code>
-            </pre>
-          </div>
           <BooksGrid books={searchResults} />
         </div>
       </div>

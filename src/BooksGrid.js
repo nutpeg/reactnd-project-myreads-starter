@@ -8,13 +8,13 @@ class BooksGrid extends Component {
         {this.props.books.map(book =>
           <li key={book.id}>
             <Book
-              title={book.title}
-              imageLink={
-                book.imageLinks ? book.imageLinks.thumbnail : undefined
-              }
-              authors={book.authors}
-              initialShelf={book.shelf}
-              id={book.id}
+              // title={book.title}
+              // imageLink={
+              //   book.imageLinks ? book.imageLinks.thumbnail : undefined
+              // }
+              // authors={book.authors}
+              // initialShelf={book.shelf}
+              // id={book.id}
 
               book={book}
               handleShelfChange={this.props.handleShelfChange}
