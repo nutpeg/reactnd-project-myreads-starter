@@ -14,30 +14,21 @@ class BookList extends Component {
     });
   }
 
-  updateShelf = (shelf, id) => {
-    const newAllBooks = this.state.allBooks.map(book => {
-      if (book.id === id) {
-        book.shelf = shelf;
+  updateShelf = (book, newShelf) => {
+    const bookId = book.id;
+    const newAllBooks = this.state.allBooks.map(bk => {
+      if (bk.id === bookId) {
+        bk.shelf = newShelf;
       }
-      return book;
+      return bk;
     });
     this.setState({ allBooks: newAllBooks });
-    // BooksAPI.update(book, shelf);
+    BooksAPI.update(book, newShelf);
   };
 
-  handleShelfChange = (event, id) => {
-    // find book using ID
-    // const i = this.state.allBooks.findIndex(book => book.id === id);
+  handleShelfChange = (event, book) => {
     const selectedShelf = event.target.value;
-    // change, no change or removal?
-    if (selectedShelf === 'none') {
-      console.log("Remove!");
-    } else {
-      this.updateShelf(selectedShelf, id);
-    }
-    // if change go through allBooks and change book.shelf
-    // if removal remove from allBooks
-    // update remote db using API
+    this.updateShelf(book, selectedShelf);
   };
 
   render() {
@@ -59,7 +50,7 @@ class BookList extends Component {
                 </div>
               </div>
               <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
+                <h2 className="bookshelf-title">Want to Read</h2>
                 <div className="bookshelf-books">
                   <BooksGrid
                       books={allBooks.filter(book => book.shelf === "wantToRead")}
@@ -68,7 +59,7 @@ class BookList extends Component {
                 </div>
               </div>
               <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
+                <h2 className="bookshelf-title">Read</h2>
                 <div className="bookshelf-books">
                   <BooksGrid
                       books={allBooks.filter(book => book.shelf === "read")}

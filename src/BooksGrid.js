@@ -14,8 +14,10 @@ class BooksGrid extends Component {
               }
               authors={book.authors}
               initialShelf={book.shelf}
-              handleShelfChange={this.props.handleShelfChange}
               id={book.id}
+
+              book={book}
+              handleShelfChange={this.props.handleShelfChange}
             />
           </li>
         )}
