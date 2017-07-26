@@ -7,24 +7,24 @@ import Search from "./Search";
 
 class BooksApp extends React.Component {
   state = {
-    allBooks: []
+    shelfBooks: []
   };
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      this.setState({ allBooks: books });
+      this.setState({ shelfBooks: books });
     });
   }
 
   updateShelf = (book, newShelf) => {
     const bookId = book.id;
-    const newAllBooks = this.state.allBooks.map(bk => {
+    const newAllBooks = this.state.shelfBooks.map(bk => {
       if (bk.id === bookId) {
         bk.shelf = newShelf;
       }
       return bk;
     });
-    this.setState({ allBooks: newAllBooks });
+    this.setState({ shelfBooks: newAllBooks });
     BooksAPI.update(book, newShelf);
   };
 
@@ -42,11 +42,18 @@ class BooksApp extends React.Component {
             path="/"
             render={() =>
               <BookList
-                books={this.state.allBooks}
+                shelfBooks={this.state.shelfBooks}
                 handleShelfChange={this.handleShelfChange}
               />}
           />
-          <Route path="/search" component={Search} />
+          <Route
+            path="/search"
+            render={() =>
+              <Search
+                shelfBooks={this.state.shelfBooks}
+                handleShelfChange={this.handleShelfChange}
+              />}
+          />
         </div>
       </Router>
     );

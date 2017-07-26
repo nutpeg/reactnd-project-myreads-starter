@@ -17,6 +17,11 @@ class Search extends Component {
       .map(id => books.find(book => book.id === id));
   };
 
+  normalizeShelves = books => {
+    //
+    return books.map(book => book);
+  };
+
   handleSearchTermChange = event => {
     let searchTerm = event.target.value;
     this.setState({ searchTerm: searchTerm.trim() });
@@ -25,13 +30,16 @@ class Search extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const values = serializeForm(event.target, { hash: true });
-    BooksAPI.search(values.searchTerm, 5).then(searchResults => {
-      this.setState({ searchResults: this.removeDuplicates(searchResults) });
+    BooksAPI.search(values.searchTerm, 1).then(searchResults => {
+      let books = this.removeDuplicates(searchResults);
+      // books = this.normalizeShelves(books);
+      this.setState({ searchResults: books });
     });
   };
 
   render() {
     const { searchTerm, searchResults } = this.state;
+    const { handleShelfChange } = this.props;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -52,7 +60,10 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BooksGrid books={searchResults} />
+          <BooksGrid
+            books={searchResults}
+            handleShelfChange={handleShelfChange}
+          />
         </div>
       </div>
     );
