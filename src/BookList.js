@@ -1,38 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import * as BooksAPI from "./BooksAPI";
 import BooksGrid from "./BooksGrid";
 
 class BookList extends Component {
-  state = {
-    allBooks: []
-  };
-
-  componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState({ allBooks: books });
-    });
-  }
-
-  updateShelf = (book, newShelf) => {
-    const bookId = book.id;
-    const newAllBooks = this.state.allBooks.map(bk => {
-      if (bk.id === bookId) {
-        bk.shelf = newShelf;
-      }
-      return bk;
-    });
-    this.setState({ allBooks: newAllBooks });
-    BooksAPI.update(book, newShelf);
-  };
-
-  handleShelfChange = (event, book) => {
-    const selectedShelf = event.target.value;
-    this.updateShelf(book, selectedShelf);
-  };
-
   render() {
-    const { allBooks } = this.state;
+    const { books, handleShelfChange } = this.props;
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -44,10 +16,10 @@ class BookList extends Component {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <BooksGrid
-                  books={allBooks.filter(
+                  books={books.filter(
                     book => book.shelf === "currentlyReading"
                   )}
-                  handleShelfChange={this.handleShelfChange}
+                  handleShelfChange={handleShelfChange}
                 />
               </div>
             </div>
@@ -55,8 +27,8 @@ class BookList extends Component {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <BooksGrid
-                  books={allBooks.filter(book => book.shelf === "wantToRead")}
-                  handleShelfChange={this.handleShelfChange}
+                  books={books.filter(book => book.shelf === "wantToRead")}
+                  handleShelfChange={handleShelfChange}
                 />
               </div>
             </div>
@@ -64,8 +36,8 @@ class BookList extends Component {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <BooksGrid
-                  books={allBooks.filter(book => book.shelf === "read")}
-                  handleShelfChange={this.handleShelfChange}
+                  books={books.filter(book => book.shelf === "read")}
+                  handleShelfChange={handleShelfChange}
                 />
               </div>
             </div>
