@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import serializeForm from "form-serialize";
 import BooksGrid from "./BooksGrid";
+import PropTypes from "prop-types";
 
 class Search extends Component {
   state = {
     searchTerm: "",
     searchResults: []
+  };
+
+  static propTypes = {
+    handleShelfChange: PropTypes.func.isRequired
   };
 
   removeDuplicates = books => {
