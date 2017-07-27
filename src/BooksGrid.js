@@ -14,8 +14,8 @@ const BooksGrid = ({ books, handleShelfChange }) => {
   );
 };
 
-Book.propTypes = {
-  book: PropTypes.object.isRequired,
+BooksGrid.propTypes = {
+  books: PropTypes.array.isRequired,
   handleShelfChange: PropTypes.func.isRequired
 };
 
