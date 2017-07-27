@@ -11,12 +11,17 @@ class BooksApp extends React.Component {
   };
 
   componentDidMount() {
+    this.getAllBooks();
+  }
+
+  getAllBooks = () => {
     BooksAPI.getAll().then(books => {
       this.setState({ shelfBooks: books });
     });
-  }
+  };
 
   updateShelf = (book, newShelf) => {
+    // Update shelf locally.
     const bookId = book.id;
     const newAllBooks = this.state.shelfBooks.map(bk => {
       if (bk.id === bookId) {
@@ -25,7 +30,13 @@ class BooksApp extends React.Component {
       return bk;
     });
     this.setState({ shelfBooks: newAllBooks });
-    BooksAPI.update(book, newShelf);
+    // Update shelf using remote API.
+    // Call getAllBooks to ensure shelfBooks is up to date when
+    // following link from Search page. Don't like this, as it
+    // causes jump of book within a shelf when re-rendered, but
+    // can't see how else to make it work. And not sure why it's
+    // needed. Any pointers much appreciated!
+    BooksAPI.update(book, newShelf).then(() => this.getAllBooks());
   };
 
   handleShelfChange = (event, book) => {

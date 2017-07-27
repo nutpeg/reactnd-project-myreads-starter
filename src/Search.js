@@ -17,9 +17,16 @@ class Search extends Component {
       .map(id => books.find(book => book.id === id));
   };
 
+  getShelf = id => {
+    const bk = this.props.shelfBooks.find(book => book.id === id);
+    return bk ? bk.shelf : "none";
+  };
+
   normalizeShelves = books => {
-    //
-    return books.map(book => book);
+    return books.map(book => {
+      book.shelf = this.getShelf(book.id);
+      return book;
+    });
   };
 
   handleSearchTermChange = event => {
@@ -32,7 +39,7 @@ class Search extends Component {
     const values = serializeForm(event.target, { hash: true });
     BooksAPI.search(values.searchTerm, 1).then(searchResults => {
       let books = this.removeDuplicates(searchResults);
-      // books = this.normalizeShelves(books);
+      books = this.normalizeShelves(books);
       this.setState({ searchResults: books });
     });
   };
