@@ -21,22 +21,14 @@ class BooksApp extends React.Component {
   };
 
   updateShelf = (book, newShelf) => {
-    // Update shelf locally.
-    const bookId = book.id;
-    const newAllBooks = this.state.shelfBooks.map(bk => {
-      if (bk.id === bookId) {
-        bk.shelf = newShelf;
-      }
-      return bk;
+    BooksAPI.update(book, newShelf).then(() => {
+      book.shelf = newShelf;
+      this.setState(state => ({
+        shelfBooks: state.shelfBooks
+          .filter(b => b.id !== book.id)
+          .concat([book])
+      }));
     });
-    this.setState({ shelfBooks: newAllBooks });
-    // Update shelf using remote API.
-    // Call getAllBooks to ensure shelfBooks is up to date when
-    // following link from Search page. Don't like this, as it
-    // causes jump of book within a shelf when re-rendered, but
-    // can't see how else to make it work. And not sure why it's
-    // needed. Any pointers much appreciated!
-    BooksAPI.update(book, newShelf).then(() => this.getAllBooks());
   };
 
   handleShelfChange = (event, book) => {
