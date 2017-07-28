@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import BooksGrid from "./BooksGrid";
+import Bookshelf from "./Bookshelf";
 import PropTypes from "prop-types";
 
 const BookList = ({ shelfBooks, handleShelfChange }) => {
@@ -10,35 +10,23 @@ const BookList = ({ shelfBooks, handleShelfChange }) => {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        <div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-            <div className="bookshelf-books">
-              <BooksGrid
-                books={shelfBooks.filter(
-                  book => book.shelf === "currentlyReading"
-                )}
+        <div className="list-books-content">
+          <div>
+            <Bookshelf
+                shelf="Currently Reading"
+                books={shelfBooks.filter(book => book.shelf === "currentlyReading")}
                 handleShelfChange={handleShelfChange}
-              />
-            </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Want to Read</h2>
-            <div className="bookshelf-books">
-              <BooksGrid
+            />
+            <Bookshelf
+                shelf="Want to Read"
                 books={shelfBooks.filter(book => book.shelf === "wantToRead")}
                 handleShelfChange={handleShelfChange}
-              />
-            </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Read</h2>
-            <div className="bookshelf-books">
-              <BooksGrid
+            />
+            <Bookshelf
+                shelf="Read"
                 books={shelfBooks.filter(book => book.shelf === "read")}
                 handleShelfChange={handleShelfChange}
-              />
-            </div>
+            />
           </div>
         </div>
       </div>
