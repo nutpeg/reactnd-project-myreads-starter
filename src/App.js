@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import BookList from "./BookList";
 import "./App.css";
 import Search from "./Search";
+import PageNotFound from "./PageNotFound";
 
 class BooksApp extends React.Component {
   state = {
@@ -40,23 +41,26 @@ class BooksApp extends React.Component {
     return (
       <Router>
         <div className="app">
-          <Route
-            exact
-            path="/"
-            render={() =>
-              <BookList
-                shelfBooks={this.state.shelfBooks}
-                handleShelfChange={this.handleShelfChange}
-              />}
-          />
-          <Route
-            path="/search"
-            render={() =>
-              <Search
-                shelfBooks={this.state.shelfBooks}
-                handleShelfChange={this.handleShelfChange}
-              />}
-          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() =>
+                <BookList
+                  shelfBooks={this.state.shelfBooks}
+                  handleShelfChange={this.handleShelfChange}
+                />}
+            />
+            <Route
+              path="/search"
+              render={() =>
+                <Search
+                  shelfBooks={this.state.shelfBooks}
+                  handleShelfChange={this.handleShelfChange}
+                />}
+            />
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
       </Router>
     );
