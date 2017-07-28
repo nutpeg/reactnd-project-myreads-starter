@@ -13,19 +13,21 @@ const BookList = ({ shelfBooks, handleShelfChange }) => {
         <div className="list-books-content">
           <div>
             <Bookshelf
-                shelf="Currently Reading"
-                books={shelfBooks.filter(book => book.shelf === "currentlyReading")}
-                handleShelfChange={handleShelfChange}
+              shelf="Currently Reading"
+              books={shelfBooks.filter(
+                book => book.shelf === "currentlyReading"
+              )}
+              handleShelfChange={handleShelfChange}
             />
             <Bookshelf
-                shelf="Want to Read"
-                books={shelfBooks.filter(book => book.shelf === "wantToRead")}
-                handleShelfChange={handleShelfChange}
+              shelf="Want to Read"
+              books={shelfBooks.filter(book => book.shelf === "wantToRead")}
+              handleShelfChange={handleShelfChange}
             />
             <Bookshelf
-                shelf="Read"
-                books={shelfBooks.filter(book => book.shelf === "read")}
-                handleShelfChange={handleShelfChange}
+              shelf="Read"
+              books={shelfBooks.filter(book => book.shelf === "read")}
+              handleShelfChange={handleShelfChange}
             />
           </div>
         </div>
